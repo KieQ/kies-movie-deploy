@@ -1,0 +1,27 @@
+FROM node:latest AS builder
+
+WORKDIR /root
+
+RUN git clone https://github.com/KieQ/kies-movie-frontend.git
+
+WORKDIR /root/kies-movie-frontend
+
+RUN sh script/build.sh
+
+FROM nginx:latest
+
+ENV LC_ALL=zh_CN.UTF-8
+
+ENV LANG=zh_CN.UTF-8
+
+ENV LANGUAGE=zh_CN.UTF-8
+
+ENV TZ=Asia/Shanghai
+
+COPY --from=builder /root/kies-movie-frontend/dist/ /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/
+
+COPY default.conf.template /etc/nginx/conf.d/default.conf.template
+
+CMD /bin/bash -c "envsubst '\$PORT:\$BACKEND_PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf" && nginx -g 'daemon off;'

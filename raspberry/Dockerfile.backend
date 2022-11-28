@@ -1,0 +1,27 @@
+FROM golang:latest AS builder
+
+WORKDIR /root
+
+RUN git clone https://github.com/KieQ/kies-movie-frontend.git
+
+WORKDIR /root/kies-code-backend
+
+RUN sh script/build.sh
+
+FROM ubuntu:latest
+
+ENV TZ=Asia/Shanghai
+
+ENV LANG=zh_CN.UTF-8
+
+ENV LC_ALL=zh_CN.UTF-8
+
+ENV LANGUAGE=zh_CN.UTF-8
+
+WORKDIR /root
+
+COPY --from=builder /root/kies-movie-frontend/kies /root
+
+COPY --from=builder /root/script /root
+
+CMD sh /root/script/run.sh
