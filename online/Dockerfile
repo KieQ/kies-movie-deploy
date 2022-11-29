@@ -26,9 +26,9 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 COPY default.conf.template /etc/nginx/conf.d/default.conf.template
 
-COPY --from=back_builder /root/kies-movie-backend/kies /root
+COPY --from=back_builder /root/kies-movie-backend/kies /root/
 
-COPY --from=back_builder /root/kies-movie-backend/script /root
+COPY --from=back_builder /root/kies-movie-backend/script /root/
 
 WORKDIR /root/
 

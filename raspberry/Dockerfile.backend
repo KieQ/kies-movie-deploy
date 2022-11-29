@@ -20,8 +20,8 @@ ENV LANGUAGE=zh_CN.UTF-8
 
 WORKDIR /root
 
-COPY --from=builder /root/kies-movie-backend/kies /root
+COPY --from=builder /root/kies-movie-backend/kies /root/
 
-COPY --from=builder /root/kies-movie-backend/script /root
+COPY --from=builder /root/kies-movie-backend/script /root/
 
 CMD sh /root/script/run.sh
