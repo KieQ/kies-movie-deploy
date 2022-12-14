@@ -28,7 +28,6 @@ services:
     environment:
       - MOVIE_DB_POSTGRES_URL=postgresql://root:root@database:5432/kie
       - BACKEND_PORT=8080
-      - TMDB_APPKEY=${TMDB_APP_KEY}
     depends_on: 
       - database
     restart: on-failure
