@@ -6,12 +6,12 @@ services:
     container_name: 
       frontend
     ports:
-      - "80:80"
+      - "12345:80"
     networks:
       - kienet
     environment:
       - BACKEND_PORT=8080
-      - PORT=12345
+      - PORT=80
     depends_on: 
       - backend
     restart: on-failure
