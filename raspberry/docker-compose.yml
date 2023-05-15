@@ -3,12 +3,10 @@ services:
   frontend:
     build:
       dockerfile: Dockerfile.frontend
-    container_name: 
-      frontend
     ports:
       - "12345:80"
     networks:
-      - kienet
+      - movienet
     environment:
       - BACKEND_PORT=8080
       - PORT=80
@@ -22,9 +20,8 @@ services:
   backend:
     build:
       dockerfile: Dockerfile.backend
-    container_name: backend
     networks:
-      - kienet
+      - movienet
     environment:
       - MOVIE_DB_POSTGRES_URL=postgresql://root:root@database:5432/kie
       - BACKEND_PORT=8080
@@ -36,10 +33,8 @@ services:
 
   database:
     image: postgres:latest
-    container_name: 
-      database
     networks:
-      - kienet
+      - movienet
     environment:
       - POSTGRES_PASSWORD=root
       - POSTGRES_USER=root
@@ -48,5 +43,5 @@ services:
 
 
 networks:
-  kienet:
+  movienet:
     driver: bridge
